@@ -2,6 +2,7 @@ package com.cydeo.service.impl;
 
 import com.cydeo.dto.RoleDTO;
 import com.cydeo.entity.Role;
+import com.cydeo.mapper.MapperUtil;
 import com.cydeo.mapper.RoleMapper;
 import com.cydeo.repository.RoleRepository;
 import com.cydeo.service.RoleService;
@@ -15,10 +16,12 @@ public class RoleServiceImpl implements RoleService {
 
     public final RoleRepository roleRepository;
     private final RoleMapper roleMapper;
+    private final MapperUtil mapperUtil;//this is just for example
 
-    public RoleServiceImpl(RoleRepository roleRepository, RoleMapper roleMapper) {
+    public RoleServiceImpl(RoleRepository roleRepository, RoleMapper roleMapper, MapperUtil mapperUtil) {
         this.roleRepository = roleRepository;
         this.roleMapper = roleMapper;
+        this.mapperUtil = mapperUtil;
     }
 
 
@@ -34,7 +37,8 @@ public class RoleServiceImpl implements RoleService {
         //I need to use Model mapper
         //I already created a class called RoleMapper and there are methods for me that will make this conversion
         //we injected RoleMapper
-        return   roleList.stream().map(roleMapper::convertToDto).collect(Collectors.toList());
+       return   roleList.stream().map(roleMapper::convertToDto).collect(Collectors.toList());//normal code
+       // return   roleList.stream().map(role->mapperUtil.convert(role,RoleDTO.class)).collect(Collectors.toList());//we added for example for mapperutil
 
 
     }
